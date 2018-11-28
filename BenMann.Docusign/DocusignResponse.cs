@@ -49,7 +49,13 @@ namespace BenMann.Docusign
 
         public T GetData<T>()
         {
+            //Console.WriteLine(responseBody);
             return JsonConvert.DeserializeObject<T>(responseBody);
+        }
+
+        public HttpContent getStreamContent()
+        {
+            return this.response.Content;
         }
     }
 
