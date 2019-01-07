@@ -137,7 +137,11 @@ namespace BenMann.Docusign
             TimeoutAction t = new TimeoutAction(serverTimeout, runServer);
             getAuthCodeSuccess = t.Start();
         }
-        
+
+        public void StopServer()
+        {
+            HttpAgent._Listener.Stop();
+        }
         public void RunServer()
         {
             var uri = new Uri(RedirectUrl);

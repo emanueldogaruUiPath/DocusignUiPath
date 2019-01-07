@@ -54,8 +54,14 @@
     <Compile Include="Authentication\GetAuthorizationUrlActivityDesigner.xaml.cs">
       <DependentUpon>GetAuthorizationUrlActivityDesigner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Build\Documents\DownloadDocumentActivityDesigner.xaml.cs">
+      <DependentUpon>DownloadDocumentActivityDesigner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Build\Documents\AttachDocumentActivityDesigner.xaml.cs">
       <DependentUpon>AttachDocumentActivityDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Build\Documents\ListDocumentsActivityDesigner.xaml.cs">
+      <DependentUpon>ListDocumentsActivityDesigner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Build\Envelopes\CreateEnvelopeActivityDesigner.xaml.cs">
       <DependentUpon>CreateEnvelopeActivityDesigner.xaml</DependentUpon>
@@ -144,6 +150,9 @@
     <Compile Include="Build\Tabs\Input\AddSSNActivityDesigner.xaml.cs">
       <DependentUpon>AddSSNActivityDesigner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Build\Tabs\ReadTabsActivityDesigner.xaml.cs">
+      <DependentUpon>ReadTabsActivityDesigner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Build\Tabs\Signing\AddApproveActivityDesigner.xaml.cs">
       <DependentUpon>AddApproveActivityDesigner.xaml</DependentUpon>
     </Compile>
@@ -158,6 +167,9 @@
     </Compile>
     <Compile Include="Templates\AssignTemplateRoleActivityDesigner.xaml.cs">
       <DependentUpon>AssignTemplateRoleActivityDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\AddBulkRecipientsActivityDesigner.xaml.cs">
+      <DependentUpon>AddBulkRecipientsActivityDesigner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\LoadTemplateActivityDesigner.xaml.cs">
       <DependentUpon>LoadTemplateActivityDesigner.xaml</DependentUpon>
@@ -187,9 +199,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Build\Documents\DownloadDocumentActivityDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Build\Documents\AttachDocumentActivityDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Build\Documents\ListDocumentsActivityDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Build\Envelopes\CreateEnvelopeActivityDesigner.xaml">
       <SubType>Designer</SubType>
@@ -307,6 +327,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Build\Tabs\ReadTabsActivityDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Build\Tabs\Signing\AddApproveActivityDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -338,6 +362,10 @@
     <Page Include="Templates\AssignTemplateRoleActivityDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\AddBulkRecipientsActivityDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Templates\LoadTemplateActivityDesigner.xaml">
       <SubType>Designer</SubType>
@@ -421,6 +449,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ListEnvelopes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DownloadDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ListDocuments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ReadTabs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddBulkRecipients.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

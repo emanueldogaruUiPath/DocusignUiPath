@@ -91,7 +91,7 @@ namespace Docusign.DocusignTypes
     public class Signer : Recipient
     {
         public Tabs tabs;
-
+        public bool isBulkRecipient = false;
         [JsonIgnore]
         public override string RecipientType
         {
@@ -106,6 +106,13 @@ namespace Docusign.DocusignTypes
                 this.tabs = new Tabs();
                 this.tabs.Add(tabs);
             }
+        }
+
+        public Signer(bool _isBulkRecipient)
+            : base("Bulk Sender", "noreply@bulk.com", 0, -1)
+        {
+            tabs = null;
+            isBulkRecipient = _isBulkRecipient;
         }
         public void AddTab(Tab tab)
         {

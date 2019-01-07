@@ -1,8 +1,10 @@
 ﻿using BenMann.Docusign;
 using Docusign.Authentication;
+using Newtonsoft.Json;
 using System;
 using System.Activities;
 using System.Activities.Statements;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -61,6 +63,27 @@ namespace Docusign {
             }
         }
 
+
+        [DisplayName("Authentification Token")]
+        [Category("Authentication")]
+        [Description("Authentification Token")]
+        public InArgument<string> AuthentificationTokenIn { get; set; }
+
+        [DisplayName("Authentification Code")]
+        [Category("Authentication")]
+        [Description("Authentification Code")]
+        public InArgument<string> AuthentificationCodeIn { get; set; }
+
+        [DisplayName("Authentification Token")]
+        [Category("Out")]
+        [Description("Authentification Token Out")]
+        public OutArgument<string> AuthentificationTokenOut { get; set; }
+
+        [DisplayName("Authentification Code")]
+        [Category("Out")]
+        [Description("Authentification Code Out")]
+        public OutArgument<string> AuthentificationCodeOut { get; set; }
+
         [Browsable(false)]
         public ActivityAction<AuthenticationAgent> AuthBody { get; set; }
         [Browsable(false)]
@@ -114,18 +137,33 @@ namespace Docusign {
 
             authAgent = new AuthenticationAgent(restApiUrl, client_id, client_secret, redirect_uri, serverTimeout);
 
-            authAgent.GetAuthUrl();
+            if (AuthentificationTokenIn.Get(context) != null)
+            {
+                authAgent.authToken = JsonConvert.DeserializeObject<AuthToken>(AuthentificationTokenIn.Get(context));
+                authAgent.GetAuthUrl();
+                authAgent.authCode = JsonConvert.DeserializeObject<ConcurrentDictionary<string, string>>(AuthentificationCodeIn.Get(context));
+                AuthenticateAsyncDelegate = new Action(ConfigureAuthentification);
+            }
+            else
+            {
+                authAgent.GetAuthUrl();
+                ScheduleAuthActivities(context);
+                AuthenticateAsyncDelegate = new Action(AuthenticateAsync);
+            }
 
-            ScheduleAuthActivities(context);
-
-            AuthenticateAsyncDelegate = new Action(AuthenticateAsync);
             return AuthenticateAsyncDelegate.BeginInvoke(callback, state);
+        }
+
+        void ConfigureAuthentification()
+        {
+            authAgent.GetUserInfo().Wait();
+            authAgent.restApiError.Test();
         }
 
         void AuthenticateAsync()
         {
             authAgent.GetAuthCode();
-
+            var AuthCodeSerialized = JsonConvert.SerializeObject(authAgent.authCode);
             if (!authAgent.getAuthCodeSuccess)
             {
                 throw new TimeoutException("Timeout exceeded waiting for authorization code.");
@@ -140,8 +178,12 @@ namespace Docusign {
 
         protected override void EndExecute(NativeActivityContext context, IAsyncResult result)
         {
+            
             AuthenticateAsyncDelegate.EndInvoke(result);
+            AuthentificationTokenOut.Set(context, JsonConvert.SerializeObject(authAgent.authToken));
+            AuthentificationCodeOut.Set(context, JsonConvert.SerializeObject(authAgent.authCode));
             ScheduleMainActivities(context);
+           
         }
 
         void ScheduleAuthActivities(NativeActivityContext context)
@@ -154,7 +196,7 @@ namespace Docusign {
         void OnAuthActivityComplete(NativeActivityContext context,
                          ActivityInstance completedInstance)
         {
-            //Pass
+            
         }
 
 
@@ -169,7 +211,10 @@ namespace Docusign {
         void OnMainActivityComplete(NativeActivityContext context,
                                  ActivityInstance completedInstance)
         {
-            //Pass
+            if (AuthentificationTokenIn.Get(context) == null)
+            {
+                authAgent.StopServer();
+            }
         }
 
         string SecureStringToString(SecureString value)

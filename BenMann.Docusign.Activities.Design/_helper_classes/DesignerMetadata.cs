@@ -21,6 +21,8 @@ using Docusign.Tabs.GUI;
 using Docusign.Tabs.Input;
 using Docusign.Tabs.Signing;
 using Docusign.Templates;
+using BenMann.Docusign.Activities.Design.Build.Documents;
+using Docusign.Tabs;
 
 namespace BenMann.Docusign.Activities.Design
 {
@@ -42,6 +44,8 @@ namespace BenMann.Docusign.Activities.Design
             //Build
             //Build - Documents
             attributeTableBuilder.AddCustomAttributes(typeof(AttachDocument), new DesignerAttribute(typeof(AttachDocumentActivityDesigner)));
+            attributeTableBuilder.AddCustomAttributes(typeof(DownloadDocument), new DesignerAttribute(typeof(DownloadDocumentActivityDesigner)));
+            attributeTableBuilder.AddCustomAttributes(typeof(ListDocuments), new DesignerAttribute(typeof(ListDocumentsActivityDesigner)));
             //Build - Envelopes
             attributeTableBuilder.AddCustomAttributes(typeof(CreateEnvelope), new DesignerAttribute(typeof(CreateEnvelopeActivityDesigner)));
             attributeTableBuilder.AddCustomAttributes(typeof(SendEnvelope), new DesignerAttribute(typeof(SendEnvelopeActivityDesigner)));
@@ -85,9 +89,11 @@ namespace BenMann.Docusign.Activities.Design
             attributeTableBuilder.AddCustomAttributes(typeof(AddDeclineTab), new DesignerAttribute(typeof(AddDeclineActivityDesigner)));
             attributeTableBuilder.AddCustomAttributes(typeof(AddInitialHereTab), new DesignerAttribute(typeof(AddInitialHereActivityDesigner)));
             attributeTableBuilder.AddCustomAttributes(typeof(AddSignHereTab), new DesignerAttribute(typeof(AddSignHereTabActivityDesigner)));
-
+            // Build - Tabs - Read Tabs
+            attributeTableBuilder.AddCustomAttributes(typeof(ReadTabs), new DesignerAttribute(typeof(ReadTabsActivityDesigner)));
             //Templates
             attributeTableBuilder.AddCustomAttributes(typeof(LoadTemplate), new DesignerAttribute(typeof(LoadTemplateActivityDesigner)));
+            attributeTableBuilder.AddCustomAttributes(typeof(AddBulkRecipient), new DesignerAttribute(typeof(AddBulkRecipientsActivityDesigner)));
             attributeTableBuilder.AddCustomAttributes(typeof(AssignTemplateRole), new DesignerAttribute(typeof(AssignTemplateRoleActivityDesigner)));
             attributeTableBuilder.AddCustomAttributes(typeof(SendTemplate), new DesignerAttribute(typeof(SendTemplateActivityDesigner)));
 

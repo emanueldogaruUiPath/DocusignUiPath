@@ -22,7 +22,7 @@ namespace Docusign.Documents
 
         [Category("Input")]
         [DisplayName("EnvelopeID")]
-        [Description("ID of the envelope")]
+        [Description("ID of the Envelope")]
         [RequiredArgument]
         public InArgument<string> EnvelopeID { get; set; }
 
@@ -52,12 +52,12 @@ namespace Docusign.Documents
             if (DocumentID.Get(context) != null)
                 mDocumentID = DocumentID.Get(context);
             else
-                throw new System.ArgumentException("Document id is required!");
+                throw new System.ArgumentException("Document ID is required!");
 
             if (OutFile.Get(context) != null)
                 mOutFile = OutFile.Get(context);
             else
-                throw new System.ArgumentException("Out filepath is required!");
+                throw new System.ArgumentException("Output filepath is required!");
 
             GetDocumentDelegate = new Action(_DownloadDocument);
             return GetDocumentDelegate.BeginInvoke(callback, state);

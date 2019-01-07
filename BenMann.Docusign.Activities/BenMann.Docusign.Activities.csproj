@@ -53,6 +53,9 @@
     <Compile Include="Build\Documents\DownloadDocument.cs" />
     <Compile Include="Build\Documents\ListDocuments.cs" />
     <Compile Include="Build\Envelopes\ListEnvelopes.cs" />
+    <Compile Include="Build\Recipients\GetRecipients.cs" />
+    <Compile Include="Build\Tabs\ReadTabs.cs" />
+    <Compile Include="Templates\AddBulkRecipient.cs" />
     <Compile Include="Build\Recipients\AddIntermediary.cs" />
     <Compile Include="Build\Recipients\AddEditor.cs" />
     <Compile Include="Build\Recipients\AddCertifiedDelivery.cs" />
@@ -91,8 +94,10 @@
     <Compile Include="Build\Tabs\Input\AddZipTab.cs" />
     <Compile Include="Build\Tabs\BaseTabTypes\AddBigDisplayItemTab.cs" />
     <Compile Include="Templates\AssignTemplateRole.cs" />
+    <Compile Include="Templates\GetBulkRecipient.cs" />
     <Compile Include="Templates\LoadTemplate.cs" />
     <Compile Include="Templates\SendTemplate.cs" />
+    <Compile Include="Templates\UpdateTemplate.cs" />
     <Compile Include="_base_classes\ASyncNativeActivity.cs" />
     <Compile Include="Constraints.cs" />
     <Compile Include="_base_classes\DocusignActivity.cs" />

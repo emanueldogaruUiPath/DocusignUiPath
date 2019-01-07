@@ -32,7 +32,13 @@ namespace Docusign.Documents
             LoadAuthentication(context);
 
             if (EnvelopeID.Get(context) != null)
+            {
                 mEnvelopeId = EnvelopeID.Get(context);
+            }
+            else
+            {
+                throw new System.ArgumentException("Envelope ID is required!");
+            }
             GetDocumentsDelegate = new Action(_ListDocuments);
             return GetDocumentsDelegate.BeginInvoke(callback, state);
         }

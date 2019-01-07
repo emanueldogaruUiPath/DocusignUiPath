@@ -228,7 +228,7 @@ namespace Docusign.Authentication
         {
             if (authMethod == AuthMethodManual)
             {
-                System.Diagnostics.Process.Start(authUrl);
+                System.Diagnostics.Process.Start("IExplore.exe", authUrl);
                 return;
             }
 

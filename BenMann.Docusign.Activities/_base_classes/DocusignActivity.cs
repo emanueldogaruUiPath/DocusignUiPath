@@ -30,7 +30,7 @@ namespace Docusign
 
         protected async Task SendRestRequest(DocusignResponse restResponse, HttpMethod method, string path, object body, Dictionary<string, string> query = null)
         {
-            HttpResponseMessage response = await HttpAgent.SendRestRequest(authAgent, method, path, body, query, true);
+            HttpResponseMessage response = await HttpAgent.SendRestRequest(authAgent, method, path, body, query, false);
             string responseContent = await response.Content.ReadAsStringAsync();
             restResponse.Initialize(response, responseContent);
             if (restResponse.NeedsRefresh)

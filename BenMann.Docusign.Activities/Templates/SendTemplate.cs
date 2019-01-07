@@ -28,7 +28,7 @@ namespace Docusign.Templates
             return SendTemplateDelegate.BeginInvoke(callback, state);
         }
 
-        void _SendTemplate() { 
+        void _SendTemplate() {
             DocusignResponse response = new DocusignResponse();
 
             SendRestRequest(response, HttpMethod.Post, "envelopes", template).Wait();
@@ -36,11 +36,15 @@ namespace Docusign.Templates
             {
                 response.Throw();
             }
+            response.GetData<SendTemplateSummary>();
         }
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
             SendTemplateDelegate.EndInvoke(result);
         }
+    }
+    public class SendTemplateSummary
+    {
     }
 }
 

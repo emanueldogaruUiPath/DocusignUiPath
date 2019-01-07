@@ -23,11 +23,11 @@ namespace Docusign.Envelopes
         [Category("Input")]
         [DisplayName("From Date")]
         [Description("Date to begin search")]
-        public InArgument<string> FromDate { get; set; }
+        public InArgument<DateTime> FromDate { get; set; }
         [Category("Input")]
         [DisplayName("To Date")]
         [Description("Date to end search")]
-        public InArgument<string> ToDate { get; set; }
+        public InArgument<DateTime> ToDate { get; set; }
         [Category("Input")]
         [DisplayName("From-To Status")]
         public FromToStatusTypes FromToStatus { get; set; }
@@ -47,8 +47,18 @@ namespace Docusign.Envelopes
 
             if (EnvelopeIDs.Get(context) != null)
                 Query["envelope_ids"] = EnvelopeIDs.Get(context).Replace(" ", "");
-            Query["from_date"] = FromDate.Get(context);
-            Query["to_date"] = ToDate.Get(context);
+
+            if (FromDate.Get(context) != DateTime.MinValue)
+            {
+                Query["from_date"] = FromDate.Get(context).ToString("s", System.Globalization.CultureInfo.InvariantCulture)+"Z";
+                Console.WriteLine("From Date: " + Query["from_date"]);
+            }
+            if (ToDate.Get(context) != DateTime.MinValue)
+            {
+                Query["to_date"] = ToDate.Get(context).ToString("s", System.Globalization.CultureInfo.InvariantCulture) + "Z";
+                Console.WriteLine("To Date: " + Query["to_date"]);
+            }
+            
             if (FromToStatus.ToString() != null && FromToStatus.ToString() != "Any")
                 Query["from_to_status"] = FromToStatus.ToString();
             if (Status.Get(context) != null)
